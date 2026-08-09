@@ -1,14 +1,19 @@
-import pymysql.cursors #Utilizamos un cursos para interactuar con BD
-class MySQLConnection: #Clase que permite generar instancia de conexión con BD
+import os
+import pymysql.cursors
+from dotenv import load_dotenv
+
+load_dotenv()
+class MySQLConnection:
     def __init__(self, db):
-        connection = pymysql.connect(host = '127.0.0.1',
-                                    user = 'root', # Cambia el usuario y contraseña
-                                    password = 'root', 
+        connection = pymysql.connect(host=os.environ.get('DB_HOST'),
+                                    port=int(os.environ.get('DB_PORT', 3306)),
+                                    user=os.environ.get('DB_USER'),
+                                    password=os.environ.get('DB_PASSWORD'), 
                                     db = db,
                                     charset = 'utf8mb4',
                                     cursorclass = pymysql.cursors.DictCursor,
                                     autocommit = True)
-        self.connection = connection #Establecemos conexión con BD
+        self.connection = connection 
     #El método que se encarga de la consulta    
     def query_db(self, query, data=None):
         with self.connection.cursor() as cursor:
