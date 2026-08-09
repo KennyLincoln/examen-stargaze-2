@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Publicación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+    <h2>Editar Publicacion</h2>
+
+    {% with messages = get_flashed_messages(category_filter=['publicacion']) %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="text-danger mb-2">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/actualizar/publicacion/{{ publicacion.id }}" method="post" class="col-md-6 mt-3">
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Nombre:</label>
+            <div class="col-sm-9">
+                <input type="text" name="nombre" class="form-control" value="{{ publicacion.nombre }}" >
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Fecha:</label>
+            <div class="col-sm-9">
+                <input type="date" name="fecha" class="form-control" value="{{ publicacion.fecha }}">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Lugar:</label>
+            <div class="col-sm-9">
+                <input type="text" name="lugar" class="form-control" value="{{ publicacion.lugar }}">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label">Descripción:</label>
+            <div class="col-sm-9">
+                <textarea name="descripcion" class="form-control" rows="4">{{ publicacion.descripcion }}</textarea>
+            </div>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-outline-dark">Guardar</button>
+        </div>
+    </form>
+</body>
+</html>
