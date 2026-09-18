@@ -1,95 +1,149 @@
-# stargaze Backend — Sistema de Gestión de Publicaciones y Usuarios (Flask)
+# Stargaze 2 — Proyecto Backend con Python, Flask y MySQL
 
-## 📌 Descripción
+## Descripción
 
-Aplicación web desarrollada en **Python con Flask**, orientada a la gestión de **usuarios** y **publicaciones**. El proyecto sigue una arquitectura tipo **MVC (Modelo - Vista - Controlador)**, con conexión a base de datos **MySQL**.
+**Stargaze 2** es una aplicación web desarrollada como proyecto backend del curso **Full Stack Python**. Su objetivo es gestionar usuarios y publicaciones sobre observaciones de estrellas mediante una arquitectura organizada en modelos, vistas y controladores (MVC), con persistencia de datos en **MySQL**.
 
-Permite:
-- Visualizar un panel principal (dashboard) con las publicaciones existentes.
-- Crear, editar y administrar publicaciones.
-- Gestionar información de usuarios registrados en el sistema.
+Este repositorio corresponde exclusivamente al proyecto **Stargaze 2**.
 
+## Demostración
 
-## 🛠️ Tecnologías utilizadas
+- Aplicación publicada: https://examen-stargaze-2.onrender.com/
+- Código fuente: https://github.com/KennyLincoln/examen-stargaze-2
 
-- **Python 3**
-- **Flask** (framework web)
-- **MySQL** (base de datos relacional)
-- **Jinja2** (motor de plantillas HTML)
-- **MySQL Workbench** (diseño del esquema de base de datos)
+> El servicio utiliza alojamiento gratuito, por lo que la primera carga puede tardar algunos segundos mientras se inicia el servidor.
 
-## 📂 Estructura del proyecto
+## Funcionalidades
 
-```
-flask_app/
-├── config/
-│   └── mysqlconnection.py     # Configuración y conexión a la base de datos
-├── controllers/
-│   ├── publicaciones.py       # Lógica de negocio para publicaciones
-│   └── usuarios.py            # Lógica de negocio para usuarios
-├── database/
-│   ├── esquema_publicaciones.mwb   # Diagrama del modelo (MySQL Workbench)
-│   └── esquema_publicaciones.sql   # Script SQL para crear la base de datos
-├── models/
-│   ├── publicacion.py         # Modelo de datos: Publicación
-│   └── usuario.py             # Modelo de datos: Usuario
-├── templates/
-│   ├── dashboard.html         # Vista principal con listado de publicaciones
-│   ├── editar_publicacion.html# Vista de edición de una publicación
-│   └── inicio.html            # Vista de inicio / landing
-├── __init__.py
+- Registro de usuarios.
+- Inicio y cierre de sesión.
+- Protección de contraseñas mediante hash con Flask-Bcrypt.
+- Creación, visualización, edición y eliminación de publicaciones.
+- Validación de formularios.
+- Control de autorización para editar o eliminar publicaciones propias.
+- Sistema de “Me gusta”.
+- Persistencia de usuarios, publicaciones y reacciones en MySQL.
+
+## Tecnologías utilizadas
+
+- Python 3.12
+- Flask
+- MySQL
+- PyMySQL
+- Flask-Bcrypt
+- Jinja2
+- Bootstrap 5
+- python-dotenv
+- Gunicorn
+- Render
+
+## Estructura del proyecto
+
+```text
+.
+├── server.py
 ├── requirements.txt
-└── .gitignore
+├── Pipfile
+├── Pipfile.lock
+├── .gitignore
+└── flask_app/
+    ├── __init__.py
+    ├── config/
+    │   └── mysqlconnection.py
+    ├── controllers/
+    │   ├── publicaciones.py
+    │   └── usuarios.py
+    ├── database/
+    │   ├── esquema_publicaciones.mwb
+    │   └── esquema_publicaciones.sql
+    ├── models/
+    │   ├── publicacion.py
+    │   └── usuario.py
+    └── templates/
+        ├── inicio.html
+        ├── dashboard.html
+        └── editar_publicacion.html
 ```
 
-## ⚙️ Instalación y ejecución
+## Modelo de datos
+
+La base de datos `esquema_publicaciones` contiene tres tablas relacionadas:
+
+- `usuarios`: almacena los datos de registro y autenticación.
+- `publicaciones`: almacena las observaciones creadas por los usuarios.
+- `me_gustas`: relaciona usuarios y publicaciones mediante una clave compuesta.
+
+El script para crear la base de datos se encuentra en:
+
+```text
+flask_app/database/esquema_publicaciones.sql
+```
+
+## Instalación local
 
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/KennyLincoln/<nombre-del-repo>.git
-cd flask_app
+git clone https://github.com/KennyLincoln/examen-stargaze-2.git
+cd examen-stargaze-2
 ```
 
-### 2. Crear entorno virtual (recomendado)
+### 2. Crear y activar un entorno virtual
+
+En Windows:
 
 ```bash
-pip install pipenv
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
-### 3. Instalar dependencias
+En Linux o macOS:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Instalar las dependencias
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configurar la base de datos
+### 4. Crear la base de datos
 
-1. Crear una base de datos en MySQL.
-2. Ejecutar el script `database/esquema_publicaciones.sql` para generar las tablas.
-3. Configurar las credenciales de conexión en `config/mysqlconnection.py` (usuario, contraseña, host, nombre de la base de datos), idealmente mediante **variables de entorno** en lugar de dejarlas escritas directamente en el código.
+Importar y ejecutar en MySQL el archivo:
 
-Ejemplo con variables de entorno (`.env`):
+```text
+flask_app/database/esquema_publicaciones.sql
 ```
+
+### 5. Configurar las variables de entorno
+
+Crear un archivo `.env` en la raíz del proyecto:
+
+```env
 DB_HOST=localhost
+DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=tu_password
-DB_NAME=flormania_db
+DB_PASSWORD=tu_contraseña
 ```
 
-### 5. Ejecutar la aplicación
+El archivo `.env` está excluido del repositorio mediante `.gitignore` para evitar publicar credenciales.
+
+### 6. Ejecutar la aplicación
 
 ```bash
-pipenv shell
 python server.py
 ```
 
-La aplicación quedará disponible en:
-```
+La aplicación estará disponible localmente en:
+
+```text
 http://127.0.0.1:5000/
 ```
 
-## 👤 Autor
+## Autor
 
-**Kenny Lincoln**
-
+**Kenny Lincoln Bugueño Sotelo**  
+Ingeniero en Minas y desarrollador en formación.
