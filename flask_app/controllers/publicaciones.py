@@ -58,6 +58,7 @@ def actualizar_publicacion(id):
 
     datos = {
         "id": id,
+        "nombre": request.form['nombre'],
         "lugar": request.form['lugar'],
         "fecha": request.form['fecha'],
         "descripcion": request.form['descripcion']
