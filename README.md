@@ -1,4 +1,4 @@
-# FlorManía Backend — Sistema de Gestión de Publicaciones y Usuarios (Flask)
+# stargaze Backend — Sistema de Gestión de Publicaciones y Usuarios (Flask)
 
 ## 📌 Descripción
 
@@ -9,7 +9,6 @@ Permite:
 - Crear, editar y administrar publicaciones.
 - Gestionar información de usuarios registrados en el sistema.
 
-> Nota: ajusta esta sección según el alcance real (por ejemplo, si existe login/autenticación, roles de usuario, o CRUD completo).
 
 ## 🛠️ Tecnologías utilizadas
 
@@ -55,8 +54,7 @@ cd flask_app
 ### 2. Crear entorno virtual (recomendado)
 
 ```bash
-python -m venv venv
-source venv/bin/activate      # En Windows: venv\Scripts\activate
+pip install pipenv
 ```
 
 ### 3. Instalar dependencias
@@ -82,7 +80,8 @@ DB_NAME=flormania_db
 ### 5. Ejecutar la aplicación
 
 ```bash
-python __init__.py
+pipenv shell
+python server.py
 ```
 
 La aplicación quedará disponible en:
@@ -90,22 +89,7 @@ La aplicación quedará disponible en:
 http://127.0.0.1:5000/
 ```
 
-## 📸 Capturas de pantalla
-
-> Agrega aquí imágenes del `dashboard.html`, `inicio.html` y `editar_publicacion.html` en funcionamiento, para mostrar visualmente el resultado.
-
-## 🗄️ Modelo de base de datos
-
-El esquema de la base de datos fue diseñado en MySQL Workbench (`esquema_publicaciones.mwb`) e incluye las tablas necesarias para representar la relación entre usuarios y publicaciones. El script SQL correspondiente se encuentra en `database/esquema_publicaciones.sql`.
-
-## 🚧 Próximas mejoras
-
-- Implementar autenticación de usuarios (login / registro).
-- Manejo de variables de entorno con `python-dotenv` para proteger credenciales.
-- Despliegue en un servicio como Render, Railway o PythonAnywhere.
-- Pruebas unitarias para controladores y modelos.
-
 ## 👤 Autor
 
 **Kenny Lincoln**
-Proyecto desarrollado como parte de práctica/certificación en desarrollo Full Stack Python.
+
