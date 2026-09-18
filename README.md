@@ -15,7 +15,6 @@ Permite:
 \- Dar "Me Gusta" a una publicación.
 
 
-
 **## 🛠️ Tecnologías utilizadas**
 
 \- **\*\*Python 3\*\***
