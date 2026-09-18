@@ -1,149 +1,147 @@
-# Stargaze 2 — Proyecto Backend con Python, Flask y MySQL
+**# stargaze Backend — Sistema de Publicaciones y Usuarios (Flask)**
 
-## Descripción
+**## 📌 Descripción**
 
-**Stargaze 2** es una aplicación web desarrollada como proyecto backend del curso **Full Stack Python**. Su objetivo es gestionar usuarios y publicaciones sobre observaciones de estrellas mediante una arquitectura organizada en modelos, vistas y controladores (MVC), con persistencia de datos en **MySQL**.
+Aplicación web desarrollada en **\*\*Python con Flask\*\***, orientada a la gestión de **\*\*usuarios\*\*** y **\*\*publicaciones\*\***. El proyecto utiliza una arquitectura tipo **\*\*MVC (Modelo - Vista - Controlador)\*\***, con conexión a base de datos **\*\*MySQL\*\***.
 
-Este repositorio corresponde exclusivamente al proyecto **Stargaze 2**.
+Permite:
 
-## Demostración
+\- Registrar usuarios e iniciar sesión
 
-- Aplicación publicada: https://examen-stargaze-2.onrender.com/
-- Código fuente: https://github.com/KennyLincoln/examen-stargaze-2
+\- Visualizar en un panel principal las publicaciones existentes.
 
-> El servicio utiliza alojamiento gratuito, por lo que la primera carga puede tardar algunos segundos mientras se inicia el servidor.
+\- Crear, editar y administrar publicaciones.
 
-## Funcionalidades
+\- Dar "Me Gusta" a una publicación.
 
-- Registro de usuarios.
-- Inicio y cierre de sesión.
-- Protección de contraseñas mediante hash con Flask-Bcrypt.
-- Creación, visualización, edición y eliminación de publicaciones.
-- Validación de formularios.
-- Control de autorización para editar o eliminar publicaciones propias.
-- Sistema de “Me gusta”.
-- Persistencia de usuarios, publicaciones y reacciones en MySQL.
 
-## Tecnologías utilizadas
 
-- Python 3.12
-- Flask
-- MySQL
-- PyMySQL
-- Flask-Bcrypt
-- Jinja2
-- Bootstrap 5
-- python-dotenv
-- Gunicorn
-- Render
+**## 🛠️ Tecnologías utilizadas**
 
-## Estructura del proyecto
+\- **\*\*Python 3\*\***
 
-```text
-.
-├── server.py
+\- **\*\*Flask\*\*** (framework web)
+
+\- **\*\*MySQL\*\*** (base de datos relacional)
+
+\- **\*\*Jinja2\*\*** (motor de plantillas HTML)
+
+\- **\*\*MySQL Workbench\*\*** (diseño del esquema de base de datos)
+
+**## 📂 Estructura del proyecto**
+
+\`\`\`
+
+flask\_app/
+
+├── config/
+
+│   └── mysqlconnection.py     # Configuración y conexión a la base de datos
+
+├── controllers/
+
+│   ├── publicaciones.py       # Lógica de negocio para publicaciones
+
+│   └── usuarios.py            # Lógica de negocio para usuarios
+
+├── database/
+
+│   ├── esquema\_publicaciones.mwb   # Diagrama del modelo (MySQL Workbench)
+
+│   └── esquema\_publicaciones.sql   # Script SQL para crear la base de datos
+
+├── models/
+
+│   ├── publicacion.py         # Modelo de datos: Publicación
+
+│   └── usuario.py             # Modelo de datos: Usuario
+
+├── templates/
+
+│   ├── dashboard.html         # Vista principal con listado de publicaciones
+
+│   ├── editar\_publicacion.html# Vista de edición de una publicación
+
+│   └── inicio.html            # Vista de inicio / landing
+
+├── \_\_init\_\_.py
+
 ├── requirements.txt
-├── Pipfile
-├── Pipfile.lock
-├── .gitignore
-└── flask_app/
-    ├── __init__.py
-    ├── config/
-    │   └── mysqlconnection.py
-    ├── controllers/
-    │   ├── publicaciones.py
-    │   └── usuarios.py
-    ├── database/
-    │   ├── esquema_publicaciones.mwb
-    │   └── esquema_publicaciones.sql
-    ├── models/
-    │   ├── publicacion.py
-    │   └── usuario.py
-    └── templates/
-        ├── inicio.html
-        ├── dashboard.html
-        └── editar_publicacion.html
-```
 
-## Modelo de datos
+└── .gitignore
 
-La base de datos `esquema_publicaciones` contiene tres tablas relacionadas:
+\`\`\`
 
-- `usuarios`: almacena los datos de registro y autenticación.
-- `publicaciones`: almacena las observaciones creadas por los usuarios.
-- `me_gustas`: relaciona usuarios y publicaciones mediante una clave compuesta.
+**## ⚙️ Instalación y ejecución**
 
-El script para crear la base de datos se encuentra en:
+**### 1. Clonar el repositorio**
 
-```text
-flask_app/database/esquema_publicaciones.sql
-```
+\`\`\`bash
 
-## Instalación local
+git clone [https://github.com/KennyLincoln/](https://github.com/KennyLincoln/)\<nombre-del-repo>.git
 
-### 1. Clonar el repositorio
+cd flask\_app
 
-```bash
-git clone https://github.com/KennyLincoln/examen-stargaze-2.git
-cd examen-stargaze-2
-```
+\`\`\`
 
-### 2. Crear y activar un entorno virtual
+**### 2. Crear entorno virtual (recomendado)**
 
-En Windows:
+\`\`\`bash
 
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-```
+pip install pipenv
 
-En Linux o macOS:
+\`\`\`
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
+**### 3. Instalar dependencias**
 
-### 3. Instalar las dependencias
+\`\`\`bash
 
-```bash
 pip install -r requirements.txt
-```
 
-### 4. Crear la base de datos
+\`\`\`
 
-Importar y ejecutar en MySQL el archivo:
+**### 4. Configurar la base de datos**
 
-```text
-flask_app/database/esquema_publicaciones.sql
-```
+1\. Crear una base de datos en MySQL.
 
-### 5. Configurar las variables de entorno
+2\. Ejecutar el script \`database/esquema\_publicaciones.sql\` para generar las tablas.
 
-Crear un archivo `.env` en la raíz del proyecto:
+3\. Configurar las credenciales de conexión en \`config/mysqlconnection.py\` (usuario, contraseña, host, nombre de la base de datos), idealmente mediante **\*\*variables de entorno\*\*** en lugar de dejarlas escritas directamente en el código.
 
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=tu_contraseña
-```
+Ejemplo con variables de entorno (\`.env\`):
 
-El archivo `.env` está excluido del repositorio mediante `.gitignore` para evitar publicar credenciales.
+\`\`\`
 
-### 6. Ejecutar la aplicación
+DB\_HOST=localhost
 
-```bash
+DB\_PORT=3306
+
+DB\_USER=root
+
+DB\_PASSWORD=tu\_password
+
+DB\_NAME=tu\_nombre
+
+\`\`\`
+
+**### 5. Ejecutar la aplicación**
+
+\`\`\`bash
+
+pipenv shell
+
 python server.py
-```
 
-La aplicación estará disponible localmente en:
+\`\`\`
 
-```text
-http://127.0.0.1:5000/
-```
+La aplicación publicada quedará disponible en:
 
-## Autor
+\`\`\`
 
-**Kenny Lincoln Bugueño Sotelo**  
-Ingeniero en Minas y desarrollador en formación.
+[https://examen-stargaze-2.onrender.com/](https://examen-stargaze-2.onrender.com/)
+
+\`\`\`
+
+**## 👤 Autor**
+
+**\*\*Kenny Lincoln Bugueño Sotelo\*\***
